@@ -16,6 +16,7 @@ use CachetHQ\Cachet\Presenters\SubscriberPresenter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 use McCool\LaravelAutoPresenter\HasPresenter;
 
 /**
@@ -91,6 +92,16 @@ class Subscriber extends Model implements HasPresenter
     }
 
     /**
+     * Get the meta relation.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function meta()
+    {
+        return $this->morphMany(Meta::class, 'meta');
+    }
+
+    /**
      * Get the subscriptions relation.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -156,7 +167,7 @@ class Subscriber extends Model implements HasPresenter
      */
     public static function generateVerifyCode()
     {
-        return str_random(42);
+        return Str::random(42);
     }
 
     /**
